@@ -1,0 +1,46 @@
+{
+  "name": "ts-analytics",
+  "version": "0.9.0",
+  "main": "./dist/index.mjs",
+  "author": "4lessandrodev",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.61",
+    "react": "^18.2.0",
+    "typescript": "^5.3.3"
+  },
+  "files": [
+    "./dist/*",
+    "./README.md",
+    "./package.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4lessandrodev/ts-analytics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/4lessandrodev/ts-analytics/issues"
+  },
+  "homepage": "https://github.com/4lessandrodev/ts-analytics",
+  "keywords": [
+    "Analytics"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./umd": "./dist/index.js"
+  },
+  "description": "This lib provide a provider for analytics",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "readme": "./README.md"
+}
