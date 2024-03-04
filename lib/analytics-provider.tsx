@@ -1,5 +1,6 @@
-import { ReactElement, useEffect, useState } from 'react';
-import useTsAnalytics from './use-analytics';
+import React from 'react';
+import { ReactElement, createContext, useEffect, useMemo, useState } from 'react';
+import TsAnalytics from './analytics';
 
 type Data = {
     itemId?: string;
@@ -17,6 +18,8 @@ type Props = {
     }
 }
 
+export const AnalyticsContext = createContext<TsAnalytics | null>(null);
+
 /**
  * Apply analytics listeners `load`, `scrollend`, and `beforeunload` to the page.
  * @param {object} props - Props do componente.
@@ -25,8 +28,8 @@ type Props = {
  * @returns {ReactNode} O elemento React renderizado.
  */
 export function AnalyticsProvider({ children, analytics }: Props): ReactElement {
-    const analytic = useTsAnalytics(analytics.url);
     const [listenersAdded, setListenersAdded] = useState(false);
+    const analytic = useMemo((): TsAnalytics => TsAnalytics.init(analytics.url), [analytics.url]);
 
     useEffect((): () => void => {
         const trackDomTimeout = setTimeout((): (() => void) | undefined => {
@@ -54,14 +57,23 @@ export function AnalyticsProvider({ children, analytics }: Props): ReactElement 
             });
         }, 5000);
 
-        return () : void => {
+        return (): void => {
             clearTimeout(trackAppAccessTimeout);
             clearTimeout(trackDomTimeout);
         };
     }, [analytics.url, analytic, listenersAdded, analytics.data, analytics.appName]);
 
-    return children;
+    useEffect((): () => void => {
+        return (): void => {
+            analytic.close();
+        };
+    }, [analytic]);
+
+    return (
+        <AnalyticsContext.Provider value={analytic}>
+          {children}
+        </AnalyticsContext.Provider>
+      );
 }
 
 export default AnalyticsProvider;
-
