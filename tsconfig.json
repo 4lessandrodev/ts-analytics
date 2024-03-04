@@ -11,7 +11,9 @@
       "noUnusedParameters": true,
       "skipDefaultLibCheck": true,
       "skipLibCheck": true,
-      "outDir": "./dist"
+      "outDir": "./dist",
+      "jsx": "react",
+      "allowSyntheticDefaultImports": true
   },
   "include": ["lib/*", "lib/**/*"],
   "exclude": ["/**/*.spec.ts", "/*.spec.ts", "tests", "*/tests"]
