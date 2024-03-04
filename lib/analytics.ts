@@ -9,7 +9,7 @@ type Common = { eventName?: string; data: Data; };
 type ParamAccess = { appName?: string } & Common;
 type ParamTrack = { data: {}, eventName: string } & Omit<Common, 'data'>;
 type Item = { itemId: string; itemPrice: string; itemName: string; itemShipping: string; };
-export default class TsAnalytics {
+export class TsAnalytics {
 
     private constructor(
         private readonly socket: WebSocket
@@ -117,3 +117,5 @@ export default class TsAnalytics {
         }
     }
 }
+
+export default TsAnalytics;

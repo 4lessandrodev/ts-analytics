@@ -23,7 +23,7 @@ type Props = {
  * @param analytics as Object
  * @returns ReactElement
  */
-export default function AnalyticsProvider({ children, analytics }: Props): ReactElement {
+export function AnalyticsProvider({ children, analytics }: Props): ReactElement {
     const analytic = useTsAnalytics(analytics.url);
     const [listenersAdded, setListenersAdded] = useState(false);
 
@@ -58,3 +58,5 @@ export default function AnalyticsProvider({ children, analytics }: Props): React
 
     return children;
 }
+
+export default AnalyticsProvider;
