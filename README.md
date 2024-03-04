@@ -62,7 +62,7 @@ import { useTsAnalytics } from 'ts-analytics';
 
 export default function Page() {
 
-    const analytic = useTsAnalytics('ws://localhost:8080');
+    const analytic = useTsAnalytics();
 
     const handleClick = () => {
         analytic.track({ eventName: 'clicked', data: { echo: 'hello' } });
@@ -92,7 +92,7 @@ import { useTsAnalytics } from 'ts-analytics';
 
 export default function ItemPage() {
 
-    const analytic = useTsAnalytics('ws://localhost:8080');
+    const analytic = useTsAnalytics();
 
     const buyClick = () => {
         analytic.itemLoad({

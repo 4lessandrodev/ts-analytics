@@ -1,19 +1,20 @@
 {
   "name": "ts-analytics",
-  "version": "0.0.2",
-  "main": "./dist/index.js",
+  "version": "0.0.13",
   "author": "4lessandrodev",
   "license": "MIT",
   "peerDependencies": {
     "react": "^18.2.0"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "vite build && npm run build:types",
+    "build:types": "tsc --declaration"
   },
   "devDependencies": {
     "@types/react": "^18.2.61",
     "react": "^18.2.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vite": "^5.1.5"
   },
   "files": [
     "./dist/*",
@@ -34,13 +35,13 @@
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "require": "./dist/index.mjs",
+      "default": "./dist/index.js",
+      "source": "./dist/index.js"
     },
-    "./umd": "./dist/index.js"
+    "./umd": "./dist/index.umd.js"
   },
   "description": "This lib provide a provider for analytics",
-  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "readme": "./README.md"
 }
