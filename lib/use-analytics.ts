@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import TsAnalytics from './analytics';
 
-export function useTsAnalytics(url: string) {
-  const analytic = useMemo(() => TsAnalytics.init(url), [url]);
+export function useTsAnalytics(url: string | URL): TsAnalytics {
+  const analytic = useMemo((): TsAnalytics => TsAnalytics.init(url), [url]);
 
-  useEffect(() => {
-    return () => {
+  useEffect((): () => void => {
+    return (): void => {
       analytic.close();
     };
   }, [analytic]);

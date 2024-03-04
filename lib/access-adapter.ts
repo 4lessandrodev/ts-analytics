@@ -1,6 +1,7 @@
+import getBrowserInfo from "./get-browser-info";
 import getDomainFromURL from "./get-domain-from-url";
 
-type Data = { itemId: string; itemPrice?: string; itemName: string; itemShipping?: string };
+type Data = { itemId?: string; itemPrice?: string; itemName?: string; itemShipping?: string };
 type Common = { eventName?: string; data: Data; location: any };
 type ParamAccess = { appName?: string; trackId: string; } & Common;
 
@@ -15,21 +16,24 @@ export default function adaptAccessData(payload: ParamAccess) {
     const trackId = payload.trackId;
     const appName = payload.appName ?? getDomainFromURL(window.location.href);
     const event = { timeStamp, eventName, data, route };
+    const { browser } = getBrowserInfo();
     const eventData = {
+        trackId,
         appName,
         eventName,
-        trackId,
-        events: [event],
-        timeStamp,
-        location: payload.location,
         node,
         route,
+        address: payload.location,
+        events: [event],
+        loadAt: timeStamp,
+        exitAt: null,
         search,
+        browser,
         item: {
-            id: data.itemId,
-            name: data.itemName,
-            price: data.itemPrice ?? '0.00',
-            shipping: data.itemShipping ?? '0.00' 
+            id: data?.itemId ?? null,
+            name: data?.itemName ?? null,
+            price: data?.itemPrice ?? null,
+            shipping: data?.itemShipping ?? null
         }
     };
     return JSON.stringify(eventData);
